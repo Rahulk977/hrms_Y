@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const attendanceController_1 = require("../controllers/attendanceController");
+const validator_1 = require("../middleware/validator");
+const router = (0, express_1.Router)();
+router.get("/", attendanceController_1.getAttendanceLogs);
+router.post("/clock-toggle", (0, validator_1.validateBody)(["employeeEmail"]), attendanceController_1.clockToggle);
+router.post("/manual-request", (0, validator_1.validateBody)(["employeeEmail", "date", "clockIn"]), attendanceController_1.submitManualAttendance);
+router.patch("/:id/approve", (0, validator_1.validateBody)(["action"]), attendanceController_1.approveAttendance);
+exports.default = router;

@@ -1,0 +1,11 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const leaveController_1 = require("../controllers/leaveController");
+const validator_1 = require("../middleware/validator");
+const router = (0, express_1.Router)();
+router.get("/requests", leaveController_1.getLeaveRequests);
+router.get("/balance", leaveController_1.getLeaveBalance);
+router.post("/apply", (0, validator_1.validateBody)(["employeeEmail", "leaveType", "startDate", "endDate", "reason"]), leaveController_1.applyLeave);
+router.patch("/requests/:id/approve", (0, validator_1.validateBody)(["action"]), leaveController_1.approveLeave);
+exports.default = router;
